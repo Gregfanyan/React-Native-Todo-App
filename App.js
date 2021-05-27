@@ -1,13 +1,11 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
+import Header from "./components/Header";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 60,
   },
 });
 
@@ -20,9 +18,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>{outputText ? "Text Changed!" : ""}</Text>
-      <Button title="Change Text" onPress={changeTextHandleClick} />
-      <StatusBar style="auto" />
+      <Header title="Header" />
     </View>
   );
 }
