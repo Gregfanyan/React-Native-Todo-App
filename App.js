@@ -32,12 +32,18 @@ export default function App() {
     },
   ]);
 
+  const deleteHandler = (id) => {
+    setItem(item.filter((newItem) => newItem.id !== id));
+  };
+
   return (
     <View style={styles.container}>
       <Header title="Header" />
       <FlatList
         data={item}
-        renderItem={({ item }) => <ListItem item={item} />}
+        renderItem={({ item }) => (
+          <ListItem item={item} deleteHandler={deleteHandler} />
+        )}
       />
     </View>
   );

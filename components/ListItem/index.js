@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import Icon from "react-native-vector-icons/FontAwesome";
+
 const styles = StyleSheet.create({
   listItem: {
     padding: 15,
@@ -25,11 +27,17 @@ const styles = StyleSheet.create({
   },
 });
 
-function ListItem({ item }) {
+function ListItem({ item, deleteHandler }) {
   return (
     <TouchableOpacity style={styles.listItem}>
       <View style={styles.listItemView}>
         <Text style={styles.listText}>{item.name}</Text>
+        <Icon
+          name="remove"
+          size={20}
+          color="firebrick"
+          onPress={() => deleteHandler(item.id)}
+        />
       </View>
     </TouchableOpacity>
   );
