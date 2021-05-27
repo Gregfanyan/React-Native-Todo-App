@@ -1,28 +1,44 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+import { v4 as uuid } from "uuid";
+
+import Header from "./components/Header";
+import ListItem from "./components/ListItem";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 60,
   },
 });
 
 export default function App() {
-  const [outputText, setOututText] = useState(false);
-
-  const changeTextHandleClick = () => {
-    setOututText(!outputText);
-  };
+  const [item, setItem] = useState([
+    {
+      id: uuid(),
+      name: "John",
+    },
+    {
+      id: uuid(),
+      name: "David",
+    },
+    {
+      id: uuid(),
+      name: "Luke",
+    },
+    {
+      id: uuid(),
+      name: "Ben",
+    },
+  ]);
 
   return (
     <View style={styles.container}>
-      <Text>{outputText ? "Text Changed!" : ""}</Text>
-      <Button title="Change Text" onPress={changeTextHandleClick} />
-      <StatusBar style="auto" />
+      <Header title="Header" />
+      <FlatList
+        data={item}
+        renderItem={({ item }) => <ListItem item={item} />}
+      />
     </View>
   );
 }
