@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+import { v4 as uuid } from "uuid";
+
 import Header from "./components/Header";
+import ListItem from "./components/ListItem";
 
 const styles = StyleSheet.create({
   container: {
@@ -10,15 +13,32 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
-  const [outputText, setOututText] = useState(false);
-
-  const changeTextHandleClick = () => {
-    setOututText(!outputText);
-  };
+  const [item, setItem] = useState([
+    {
+      id: uuid(),
+      name: "John",
+    },
+    {
+      id: uuid(),
+      name: "David",
+    },
+    {
+      id: uuid(),
+      name: "Luke",
+    },
+    {
+      id: uuid(),
+      name: "Ben",
+    },
+  ]);
 
   return (
     <View style={styles.container}>
       <Header title="Header" />
+      <FlatList
+        data={item}
+        renderItem={({ item }) => <ListItem item={item} />}
+      />
     </View>
   );
 }
