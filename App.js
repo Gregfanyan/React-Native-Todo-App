@@ -16,24 +16,7 @@ const styles = StyleSheet.create({
 export default function App() {
   const [inputText, setInputText] = useState("");
   const [isAddMode, setIsAddMode] = useState(false);
-  const [item, setItem] = useState([
-    {
-      id: uuid(),
-      name: "John",
-    },
-    {
-      id: uuid(),
-      name: "David",
-    },
-    {
-      id: uuid(),
-      name: "Luke",
-    },
-    {
-      id: uuid(),
-      name: "Ben",
-    },
-  ]);
+  const [item, setItem] = useState([]);
 
   const deleteHandler = (id) => {
     setItem((currentState) => {
@@ -72,7 +55,7 @@ export default function App() {
         onChangeHandler={onChangeHandler}
         inputText={inputText}
         isAddMode={isAddMode}
-        cancelHandler = {cancelHandler}
+        cancelHandler={cancelHandler}
       />
       <FlatList
         data={item}
