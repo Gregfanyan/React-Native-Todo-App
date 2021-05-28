@@ -57,27 +57,18 @@ function ListItem({
             </View>
           )}
         </View>
-        {!isOpened ? (
-          <View>
-            <Icon
-              name="pencil"
-              size={20}
-              color="grey"
-              onPress={() => setIsopened(true)}
-            />
-          </View>
-        ) : (
-          <View>
-            <Icon
-              name="pencil"
-              size={20}
-              color="green"
-              onPress={() =>
-                changeTodoHandleClick(todoItem.id, updatedInputText)
-              }
-            />
-          </View>
-        )}
+        <View>
+          <Icon
+            name="pencil"
+            size={20}
+            color={!isOpened ? "grey" : "green"}
+            onPress={
+              !isOpened
+                ? () => setIsopened(true)
+                : () => changeTodoHandleClick(todoItem.id)
+            }
+          />
+        </View>
         <View>
           <Icon
             name="remove"

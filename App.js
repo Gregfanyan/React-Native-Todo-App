@@ -21,8 +21,8 @@ export default function App() {
   const [todo, setTodo] = useState([]);
 
   const deleteHandler = (id) => {
-    setTodo((currentState) => {
-      return todo.filter((newItem) => newItem.id !== id);
+    setTodo((prevState) => {
+      return prevState.filter((newItem) => newItem.id !== id);
     });
   };
 
@@ -40,7 +40,7 @@ export default function App() {
     setIsAddMode(false);
   };
 
-  const changeTodoHandleClick = (id, updatedInputText) => {
+  const changeTodoHandleClick = (id) => {
     if (updatedInputText) {
       setTodo(
         todo.map((item) => {
@@ -85,10 +85,8 @@ export default function App() {
             setIsopened={setIsopened}
             isOpened={isOpened}
             todoItem={todoItem.item}
-            onDelete={deleteHandler}
             deleteHandler={deleteHandler}
             changeTodoHandleClick={changeTodoHandleClick}
-            setUpdatedNewInputText={setUpdatedNewInputText}
             updatedInputText={updatedInputText}
             onChangeEditTodoHandler={onChangeEditTodoHandler}
           />
