@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
 
 export default function App() {
   const [inputText, setInputText] = useState("");
+  const [isAddMode, setIsAddMode] = useState(false);
   const [item, setItem] = useState([
     {
       id: uuid(),
@@ -35,7 +36,9 @@ export default function App() {
   ]);
 
   const deleteHandler = (id) => {
-    setItem(item.filter((newItem) => newItem.id !== id));
+    setItem((currentState) => {
+      return item.filter((newItem) => newItem.id !== id);
+    });
   };
 
   const addNewItemHandler = (inputValue) => {
@@ -49,24 +52,36 @@ export default function App() {
       ]);
     }
     setInputText("");
+    setIsAddMode(false);
   };
 
   const onChangeHandler = (name) => {
     setInputText(name);
   };
 
+  const cancelHandler = () => {
+    setIsAddMode(false);
+  };
+
   return (
     <View style={styles.container}>
-      <Header title="Header" />
+      <Header title="Todo App" />
+      <Button title="Add New Item" onPress={() => setIsAddMode(true)} />
       <NewItem
         addNewItemHandler={addNewItemHandler}
         onChangeHandler={onChangeHandler}
         inputText={inputText}
+        isAddMode={isAddMode}
+        cancelHandler = {cancelHandler}
       />
       <FlatList
         data={item}
         renderItem={({ item }) => (
-          <ListItem item={item} deleteHandler={deleteHandler} />
+          <ListItem
+            item={item}
+            onDelete={deleteHandler}
+            deleteHandler={deleteHandler}
+          />
         )}
       />
     </View>

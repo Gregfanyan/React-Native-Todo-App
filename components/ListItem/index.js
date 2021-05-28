@@ -29,7 +29,10 @@ const styles = StyleSheet.create({
 
 function ListItem({ item, deleteHandler }) {
   return (
-    <TouchableOpacity style={styles.listItem}>
+    <TouchableOpacity
+      onPress={deleteHandler.bind(this, item.id)}
+      style={styles.listItem}
+    >
       <View style={styles.listItemView}>
         <Text style={styles.listText}>{item.name}</Text>
         <Icon
