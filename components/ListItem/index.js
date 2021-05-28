@@ -6,6 +6,7 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -27,22 +28,40 @@ const styles = StyleSheet.create({
   },
 });
 
-function ListItem({ item, deleteHandler }) {
+function ListItem({ deleteHandler, todoItem, setIsopened, isOpened }) {
+  console.log("isOpened", isOpened);
   return (
-    <TouchableOpacity
-      onPress={deleteHandler.bind(this, item.id)}
-      style={styles.listItem}
-    >
+    <View style={styles.listItem}>
       <View style={styles.listItemView}>
-        <Text style={styles.listText}>{item.name}</Text>
-        <Icon
-          name="remove"
-          size={20}
-          color="firebrick"
-          onPress={() => deleteHandler(item.id)}
-        />
+        <View>
+          <Text style={styles.listText}>{todoItem.name}</Text>
+          <View>
+            <TextInput
+              style={styles.input}
+              /*  onChangeText={onChangeHandler} */
+              /* value={inputText} */
+              placeholder="Change"
+            />
+          </View>
+        </View>
+        <View>
+          <Icon
+            name="pencil"
+            size={20}
+            color="grey"
+            onPress={() => setIsopened(!isOpened)}
+          />
+        </View>
+        <View>
+          <Icon
+            name="remove"
+            size={20}
+            color="firebrick"
+            onPress={() => deleteHandler(todoItem.id)}
+          />
+        </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 

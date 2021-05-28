@@ -48,7 +48,6 @@ function NewItem({
             keyboardType="numeric"
           />
         </View>
-        <View></View>
         <Icon
           name="plus"
           onPress={addNewItemHandler.bind(this, inputText)}

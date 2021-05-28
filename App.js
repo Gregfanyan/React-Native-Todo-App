@@ -15,18 +15,29 @@ const styles = StyleSheet.create({
 
 export default function App() {
   const [inputText, setInputText] = useState("");
+  const [updatedInputText, setUpdatedNewInputText] = useState("");
   const [isAddMode, setIsAddMode] = useState(false);
-  const [item, setItem] = useState([]);
+  const [isOpened, setIsopened] = useState(false);
+  const [todo, setTodo] = useState([
+    {
+      id: uuid(),
+      name: "John",
+    },
+    {
+      id: uuid(),
+      name: "Joe",
+    },
+  ]);
 
   const deleteHandler = (id) => {
-    setItem((currentState) => {
-      return item.filter((newItem) => newItem.id !== id);
+    setTodo((currentState) => {
+      return todo.filter((newItem) => newItem.id !== id);
     });
   };
 
   const addNewItemHandler = (inputValue) => {
     if (inputValue) {
-      setItem([...item, { id: uuid(), name: inputValue }]);
+      setTodo([...todo, { id: uuid(), name: inputValue }]);
     } else {
       Alert.alert("INPUT IS EMPTY", "Please fill in the input", [
         {
@@ -58,10 +69,12 @@ export default function App() {
         cancelHandler={cancelHandler}
       />
       <FlatList
-        data={item}
-        renderItem={({ item }) => (
+        data={todo}
+        renderItem={(todoItem) => (
           <ListItem
-            item={item}
+            setIsopened={setIsopened}
+            isOpened={isOpened}
+            todoItem={todoItem.item}
             onDelete={deleteHandler}
             deleteHandler={deleteHandler}
           />
