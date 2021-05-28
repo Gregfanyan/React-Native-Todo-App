@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   TextInput,
+  Modal,
 } from "react-native";
 
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -16,34 +17,46 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   wrapper: {
-    display: "flex",
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
   },
   icon: {
+    padding: 10,
     fontSize: 25,
     color: "green",
-    padding: 15,
   },
 });
 
-function NewItem({ item, addNewItemHandler, onChangeHandler, inputText }) {
-
+function NewItem({
+  item,
+  addNewItemHandler,
+  onChangeHandler,
+  inputText,
+  isAddMode,
+  cancelHandler,
+}) {
   return (
-    <View style={styles.wrapper}>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeHandler}
-        value={inputText}
-        placeholder="Add New Item"
-        keyboardType="numeric"
-      />
-      <Icon
-        name="plus"
-        onPress={() => addNewItemHandler(inputText)}
-        style={styles.icon}
-      />
-    </View>
+    <Modal visible={isAddMode} animationType="slide">
+      <View style={styles.wrapper}>
+        <View>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeHandler}
+            value={inputText}
+            placeholder="Add New Item"
+            keyboardType="numeric"
+          />
+        </View>
+        <View></View>
+        <Icon
+          name="plus"
+          onPress={addNewItemHandler.bind(this, inputText)}
+          style={styles.icon}
+        />
+      </View>
+      <Button title="Cancel" color="red" onPress={cancelHandler} />
+    </Modal>
   );
 }
 
