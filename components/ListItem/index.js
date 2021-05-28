@@ -6,6 +6,7 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -25,24 +26,68 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  input: {
+    padding: 12,
+  },
 });
 
-function ListItem({ item, deleteHandler }) {
+function ListItem({
+  deleteHandler,
+  todoItem,
+  setIsopened,
+  isOpened,
+  changeTodoHandleClick,
+  updatedInputText,
+  onChangeEditTodoHandler,
+}) {
   return (
-    <TouchableOpacity
-      onPress={deleteHandler.bind(this, item.id)}
-      style={styles.listItem}
-    >
+    <View style={styles.listItem}>
       <View style={styles.listItemView}>
-        <Text style={styles.listText}>{item.name}</Text>
-        <Icon
-          name="remove"
-          size={20}
-          color="firebrick"
-          onPress={() => deleteHandler(item.id)}
-        />
+        <View>
+          {!isOpened ? (
+            <Text style={styles.listText}>{todoItem.name}</Text>
+          ) : (
+            <View>
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeEditTodoHandler}
+                defaultValue={todoItem.name}
+                placeholder="Edit"
+              />
+            </View>
+          )}
+        </View>
+        {!isOpened ? (
+          <View>
+            <Icon
+              name="pencil"
+              size={20}
+              color="grey"
+              onPress={() => setIsopened(true)}
+            />
+          </View>
+        ) : (
+          <View>
+            <Icon
+              name="pencil"
+              size={20}
+              color="green"
+              onPress={() =>
+                changeTodoHandleClick(todoItem.id, updatedInputText)
+              }
+            />
+          </View>
+        )}
+        <View>
+          <Icon
+            name="remove"
+            size={20}
+            color="firebrick"
+            onPress={() => deleteHandler(todoItem.id)}
+          />
+        </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 

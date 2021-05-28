@@ -45,10 +45,9 @@ function NewItem({
             onChangeText={onChangeHandler}
             value={inputText}
             placeholder="Add New Item"
-            keyboardType="numeric"
+            keyboardType="default"
           />
         </View>
-        <View></View>
         <Icon
           name="plus"
           onPress={addNewItemHandler.bind(this, inputText)}
