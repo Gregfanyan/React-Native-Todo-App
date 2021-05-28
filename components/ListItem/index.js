@@ -26,32 +26,58 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  input: {
+    padding: 12,
+  },
 });
 
-function ListItem({ deleteHandler, todoItem, setIsopened, isOpened }) {
-  console.log("isOpened", isOpened);
+function ListItem({
+  deleteHandler,
+  todoItem,
+  setIsopened,
+  isOpened,
+  changeTodoHandleClick,
+  updatedInputText,
+  onChangeEditTodoHandler,
+}) {
   return (
     <View style={styles.listItem}>
       <View style={styles.listItemView}>
         <View>
-          <Text style={styles.listText}>{todoItem.name}</Text>
+          {!isOpened ? (
+            <Text style={styles.listText}>{todoItem.name}</Text>
+          ) : (
+            <View>
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeEditTodoHandler}
+                defaultValue={todoItem.name}
+                placeholder="Edit"
+              />
+            </View>
+          )}
+        </View>
+        {!isOpened ? (
           <View>
-            <TextInput
-              style={styles.input}
-              /*  onChangeText={onChangeHandler} */
-              /* value={inputText} */
-              placeholder="Change"
+            <Icon
+              name="pencil"
+              size={20}
+              color="grey"
+              onPress={() => setIsopened(true)}
             />
           </View>
-        </View>
-        <View>
-          <Icon
-            name="pencil"
-            size={20}
-            color="grey"
-            onPress={() => setIsopened(!isOpened)}
-          />
-        </View>
+        ) : (
+          <View>
+            <Icon
+              name="pencil"
+              size={20}
+              color="green"
+              onPress={() =>
+                changeTodoHandleClick(todoItem.id, updatedInputText)
+              }
+            />
+          </View>
+        )}
         <View>
           <Icon
             name="remove"

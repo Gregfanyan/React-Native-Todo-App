@@ -18,16 +18,7 @@ export default function App() {
   const [updatedInputText, setUpdatedNewInputText] = useState("");
   const [isAddMode, setIsAddMode] = useState(false);
   const [isOpened, setIsopened] = useState(false);
-  const [todo, setTodo] = useState([
-    {
-      id: uuid(),
-      name: "John",
-    },
-    {
-      id: uuid(),
-      name: "Joe",
-    },
-  ]);
+  const [todo, setTodo] = useState([]);
 
   const deleteHandler = (id) => {
     setTodo((currentState) => {
@@ -47,6 +38,25 @@ export default function App() {
     }
     setInputText("");
     setIsAddMode(false);
+  };
+
+  const changeTodoHandleClick = (id, updatedInputText) => {
+    if (updatedInputText) {
+      setTodo(
+        todo.map((item) => {
+          if (item.id === id) {
+            return { ...item, name: updatedInputText };
+          }
+          return item;
+        })
+      );
+    }
+    setIsopened(false);
+    setUpdatedNewInputText("");
+  };
+
+  const onChangeEditTodoHandler = (name) => {
+    setUpdatedNewInputText(name);
   };
 
   const onChangeHandler = (name) => {
@@ -77,6 +87,10 @@ export default function App() {
             todoItem={todoItem.item}
             onDelete={deleteHandler}
             deleteHandler={deleteHandler}
+            changeTodoHandleClick={changeTodoHandleClick}
+            setUpdatedNewInputText={setUpdatedNewInputText}
+            updatedInputText={updatedInputText}
+            onChangeEditTodoHandler={onChangeEditTodoHandler}
           />
         )}
       />

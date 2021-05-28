@@ -45,7 +45,7 @@ function NewItem({
             onChangeText={onChangeHandler}
             value={inputText}
             placeholder="Add New Item"
-            keyboardType="numeric"
+            keyboardType="default"
           />
         </View>
         <Icon
